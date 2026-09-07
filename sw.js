@@ -1,12 +1,12 @@
-const CACHE='petites-betises-v7';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./photo-fix.js','./face-v7.js'];
+const CACHE='petites-betises-v8';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./photo-fix.js','./face-v8.js'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 async function injectFix(response){
   const text=await response.text();
   let body=text;
-  if(!body.includes('photo-fix.js')) body=body.replace('</body>','<script src="./photo-fix.js?v=7"></script></body>');
-  if(!body.includes('face-v7.js')) body=body.replace('</body>','<script src="./face-v7.js?v=7"></script></body>');
+  if(!body.includes('photo-fix.js')) body=body.replace('</body>','<script src="./photo-fix.js?v=8"></script></body>');
+  if(!body.includes('face-v8.js')) body=body.replace('</body>','<script src="./face-v8.js?v=8"></script></body>');
   return new Response(body,{status:response.status,statusText:response.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache'}});
 }
 self.addEventListener('fetch',event=>{
