@@ -1,0 +1,12 @@
+{
+  "name": "Les Petites Bêtises",
+  "short_name": "Bêtises",
+  "description": "Petit compteur familial et accueil d'enfants : midi, soir, bonnes actions et historique local.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fffaf7",
+  "theme_color": "#fffaf7",
+  "orientation": "portrait-primary",
+  "icons": []
+}
