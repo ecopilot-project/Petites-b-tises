@@ -1,6 +1,6 @@
-const CACHE='petites-betises-v26';
-const SCRIPTS=['photo-fix.js','face-v8.js','romane-pack.js','nora-pack.js','baptiste-pack.js','sloan-pack.js','raphael-pack.js','birthday.js'];
-const ASSETS=['./','./index.html','./manifest.webmanifest','./nora-photo-originale.webp',...SCRIPTS.map(f=>'./'+f+'?v=26'),...['zero','half','one','two','three','good','birthday'].flatMap(kind=>['./Asset/Nora/nora-'+kind+'-hq.webp','./Asset/Baptiste/baptiste-'+kind+'-hq.webp','./Asset/Sloan/sloan-'+kind+'-hq.webp','./Asset/Raphael/raphael-'+kind+'-hq.webp'])];
+const CACHE='petites-betises-v27';
+const SCRIPTS=['photo-fix.js','face-v8.js','romane-pack.js','nora-pack.js','baptiste-pack.js','sloan-pack.js','raphael-pack.js','birthday.js','weekly-v27.js'];
+const ASSETS=['./','./index.html','./manifest.webmanifest','./nora-photo-originale.webp',...SCRIPTS.map(f=>'./'+f+'?v=27'),...['zero','half','one','two','three','good','birthday'].flatMap(kind=>['./Asset/Nora/nora-'+kind+'-hq.webp','./Asset/Baptiste/baptiste-'+kind+'-hq.webp','./Asset/Sloan/sloan-'+kind+'-hq.webp','./Asset/Raphael/raphael-'+kind+'-hq.webp'])];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });
@@ -9,7 +9,7 @@ self.addEventListener('activate',event=>{
 });
 async function injectFix(response){
   let body=await response.text();
-  for(const f of SCRIPTS)if(!body.includes(f))body=body.replace('</body>',`<script src="./${f}?v=26"></script></body>`);
+  for(const f of SCRIPTS)if(!body.includes(f))body=body.replace('</body>',`<script src="./${f}?v=27"></script></body>`);
   return new Response(body,{status:response.status,statusText:response.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store, max-age=0'}});
 }
 self.addEventListener('fetch',event=>{
