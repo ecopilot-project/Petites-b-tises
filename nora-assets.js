@@ -1,0 +1,1 @@
+window.NORA_ASSETS={};
