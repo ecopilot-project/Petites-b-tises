@@ -1,12 +1,13 @@
-const CACHE='petites-betises-v8';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./photo-fix.js','./face-v8.js'];
+const CACHE='petites-betises-v9';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./photo-fix.js','./face-v8.js','./romane-pack.js'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 async function injectFix(response){
   const text=await response.text();
   let body=text;
-  if(!body.includes('photo-fix.js')) body=body.replace('</body>','<script src="./photo-fix.js?v=8"></script></body>');
+  if(!body.includes('photo-fix.js')) body=body.replace('</body>','<script src="./photo-fix.js?v=9"></script></body>');
   if(!body.includes('face-v8.js')) body=body.replace('</body>','<script src="./face-v8.js?v=8"></script></body>');
+  if(!body.includes('romane-pack.js')) body=body.replace('</body>','<script src="./romane-pack.js?v=1"></script></body>');
   return new Response(body,{status:response.status,statusText:response.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache'}});
 }
 self.addEventListener('fetch',event=>{
