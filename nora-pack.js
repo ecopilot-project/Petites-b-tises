@@ -1,11 +1,11 @@
 (()=>{
-  const SPRITE_RAW='https://raw.githubusercontent.com/ecopilot-project/Petites-b-tises/main/Asset/Nora/nora-sprite.webp';
-  const SPRITE_LOCAL='./Asset/Nora/nora-sprite.webp';
+  const SPRITE_RAW='https://raw.githubusercontent.com/ecopilot-project/Petites-b-tises/main/Asset/Nora/nora-sprite.WEBP';
+  const SPRITE_LOCAL='./Asset/Nora/nora-sprite.WEBP';
   const frameIndex={zero:0,half:1,one:2,two:3,three:4,good:5,birthday:6};
   const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
   const isNora=c=>norm(c?.name)==='nora';
   let spritePromise=null,overlay=null;
-  function loadSprite(){if(spritePromise)return spritePromise;spritePromise=new Promise((resolve,reject)=>{const i=new Image();i.crossOrigin='anonymous';i.onload=()=>resolve(i);i.onerror=()=>{const j=new Image();j.onload=()=>resolve(j);j.onerror=reject;j.src=SPRITE_LOCAL+'?v=1'};i.src=SPRITE_RAW+'?v=1'});return spritePromise}
+  function loadSprite(){if(spritePromise)return spritePromise;spritePromise=new Promise((resolve,reject)=>{const i=new Image();i.crossOrigin='anonymous';i.onload=()=>resolve(i);i.onerror=()=>{const j=new Image();j.onload=()=>resolve(j);j.onerror=reject;j.src=SPRITE_LOCAL+'?v=2'};i.src=SPRITE_RAW+'?v=2'});return spritePromise}
   function ensureOverlay(){if(overlay)return overlay;overlay=document.createElement('div');overlay.id='noraPackOverlay';overlay.innerHTML=`<style>#noraPackOverlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:16000;background:rgba(24,42,66,.38);backdrop-filter:blur(7px);padding:18px}#noraPackOverlay.show{display:flex}#noraPackCard{width:min(92vw,430px);background:#fff;border-radius:34px;padding:16px;box-shadow:0 30px 90px rgba(0,0,0,.28);text-align:center;animation:noraIn .25s ease-out}#noraCanvas{width:100%;aspect-ratio:1;border-radius:26px;display:block;background:#f3f6fa}#noraTitle{font-size:31px;line-height:1.05;font-weight:950;color:#17365d;margin-top:12px}#noraSub{font-size:16px;color:#718096;margin-top:5px}@keyframes noraIn{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}</style><div id="noraPackCard"><canvas id="noraCanvas" width="320" height="320"></canvas><div id="noraTitle"></div><div id="noraSub"></div></div>`;document.body.appendChild(overlay);return overlay}
   function stateFor(total){if(total>=3)return'three';if(total>=2)return'two';if(total>=1)return'one';if(total>=.5)return'half';return'zero'}
   function drawFrame(ctx,img,state,alpha=1,scale=1){const idx=frameIndex[state],sx=idx*320;ctx.save();ctx.globalAlpha=alpha;ctx.translate(160,160);ctx.scale(scale,scale);ctx.drawImage(img,sx,0,320,320,-160,-160,320,320);ctx.restore()}
