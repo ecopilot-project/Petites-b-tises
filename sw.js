@@ -1,10 +1,12 @@
-const CACHE='petites-betises-v6';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./photo-fix.js'];
+const CACHE='petites-betises-v7';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./photo-fix.js','./face-v7.js'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 async function injectFix(response){
   const text=await response.text();
-  const body=text.includes('photo-fix.js')?text:text.replace('</body>','<script src="./photo-fix.js?v=6"></script></body>');
+  let body=text;
+  if(!body.includes('photo-fix.js')) body=body.replace('</body>','<script src="./photo-fix.js?v=7"></script></body>');
+  if(!body.includes('face-v7.js')) body=body.replace('</body>','<script src="./face-v7.js?v=7"></script></body>');
   return new Response(body,{status:response.status,statusText:response.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache'}});
 }
 self.addEventListener('fetch',event=>{
