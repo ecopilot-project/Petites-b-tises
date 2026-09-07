@@ -33,9 +33,10 @@ $('#saveSettings').onclick=()=>{state.settings.threshold=Number($('#threshold').
 $('#resetMidi').onclick=()=>{if(confirm('Le repas de midi est terminé ? Remettre tous les compteurs midi à zéro ?')){state.children.forEach(c=>{c.midi=0;c.last=[]});addHistory('Compteurs midi remis à zéro');persist()}};$('#resetSoir').onclick=()=>{if(confirm('Le repas du soir est terminé ? Remettre tous les compteurs soir à zéro ?')){state.children.forEach(c=>{c.soir=0;c.last=[]});addHistory('Compteurs soir remis à zéro');persist()}};$('#clearHistory').onclick=()=>{if(confirm('Effacer l’historique du jour ?')){state.history=[];persist()}};$('#resetAll').onclick=()=>{if(confirm('Tout remettre à zéro ? Les profils et photos seront conservés.')){state.children.forEach(c=>{c.midi=0;c.soir=0;c.stars=0;c.last=[]});state.history=[];persist();$('#settingsModal').classList.remove('open')}};$('#showAll').onclick=()=>{state.children.forEach(c=>c.present=true);persist()};
 const isiOS=/iphone|ipad|ipod/i.test(navigator.userAgent),standalone=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone;if(isiOS&&!standalone)$('#installHint').style.display='block';if('serviceWorker'in navigator){const wasControlled=!!navigator.serviceWorker.controller;let refreshing=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(wasControlled&&!refreshing){refreshing=true;location.reload()}});navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{});}draw();
 </script>
-<script src="./photo-fix.js?v=21"></script>
-<script src="./face-v8.js?v=21"></script>
-<script src="./romane-pack.js?v=21"></script>
-<script src="./nora-pack.js?v=21"></script>
-<script src="./birthday.js?v=21"></script>
+<script src="./photo-fix.js?v=22"></script>
+<script src="./face-v8.js?v=22"></script>
+<script src="./romane-pack.js?v=22"></script>
+<script src="./nora-pack.js?v=22"></script>
+<script src="./baptiste-pack.js?v=22"></script>
+<script src="./birthday.js?v=22"></script>
 </body></html>
